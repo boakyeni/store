@@ -1,4 +1,5 @@
 # store
+Basic e-commerce website
 
 ## Project setup
 ```
