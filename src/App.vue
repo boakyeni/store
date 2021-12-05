@@ -17,8 +17,9 @@
 }
 
 #nav {
-  padding: 30px;
-
+  padding-top: 25px;
+  padding-bottom: 25px;
+  /*
   a {
     font-weight: bold;
     color: #2c3e50;
@@ -26,6 +27,10 @@
     &.router-link-exact-active {
       color: #42b983;
     }
+
+  }*/
+  #logo{
+    font-weight: bold;
   }
 }
 </style>

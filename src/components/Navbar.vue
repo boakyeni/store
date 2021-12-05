@@ -1,9 +1,9 @@
 <template>
 <div>
   <section class="ftco-section">
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
       <div class="container">
-        <a class="navbar-brand" href="index.html">Shop</a>
+        <a id="logo" class="navbar-brand" href="index.html">Shop</a>
         <!-- Search Bar -->
         <form action="#" class="searchform order-sm-start order-lg-last">
           <div class="form-group d-flex">
@@ -22,16 +22,15 @@
         </button>
         <!-- Main navigation for all screen sizes-->
         <div class="collapse navbar-collapse" id="ftco-nav">
-          <ul class="navbar-nav m-auto">
+          <ul class="navbar-nav m-auto pl-5">
             <li class="nav-item">
               <router-link :to="{ name: 'Home' }" class="nav-link">Home</router-link>
             </li>
             <li class="nav-item">
-              <router-link to="/about" class="nav-link">Catalog</router-link>
+              <router-link to="/about" class="nav-link">Products</router-link>
             </li>
-            <li class="nav-item"><a href="#" class="nav-link">Work</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Blog</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">About</a></li>
           </ul>
         </div>
       </div>
