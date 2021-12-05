@@ -110,3 +110,4 @@ export default {
   },
 };
 </script>
+<style scoped src='../assets/admin.scss' lang="scss"></style>

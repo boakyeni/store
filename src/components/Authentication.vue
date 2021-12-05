@@ -5,18 +5,19 @@
 
   <!-- Login Modal -->
   <section class="sign-in modal fade" id="loginModal" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="container modal-dialog ">
-      <div class="signin-content modal-content ">
-        <div class="signin-image modal header">
-          <figure><img src="images/signin-image.jpg" alt="sing up image"></figure>
+    <div class="container modal-dialog modal-content">
+      <div class="row signin-content align-items-center">
+
+        <div class="col-md-4" style="padding: 0px;">
+          <figure><img src="img/svg/workingImage.svg" class="img-fluid"></figure>
           <a href="#" class="signup-image-link">Create an account</a>
         </div>
 
-        <div class="signin-form">
-          <h2 class="form-title">Login</h2>
+        <div class="signin-form col-md-6">
+          <h2 class="form-title modal-header">Login</h2>
           <form method="POST" class="register-form" id="login-form">
             <div class="form-group">
-              <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+              <label for="your_name"><i class="bi bi-person-fill"></i></label>
               <input type="text" name="your_name" id="your_name" placeholder="Your Name" />
             </div>
             <div class="form-group">
@@ -40,6 +41,7 @@
             </ul>
           </div>
         </div>
+
       </div>
     </div>
   </section>
@@ -48,9 +50,9 @@
   <section class="modal fade signup" id="signUpModal" aria-labelledby="signUpModalLabel" aria-hidden="true">
     <div class="modal-dialog container">
       <div class="modal-content signup-content">
-        <div class="modal-header signup-form">
-          <h2 class="form-title">Sign up</h2>
-          <form method="POST" class="register-form" id="register-form">
+          <h2 class="form-title modal-header ml-3">Sign up</h2>
+          <div class="row justify-content-center align-items-center">
+          <form method="POST" class="register-form col-6" id="register-form">
             <div class="form-group">
               <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
               <input type="text" name="name" id="name" placeholder="Your Name" />
@@ -75,10 +77,10 @@
               <input type="submit" name="signup" id="signup" class="form-submit" value="Register" />
             </div>
           </form>
-        </div>
-        <div class="signup-image">
-          <figure><img src="images/signup-image.jpg" alt="sing up image"></figure>
-          <a href="#" class="signup-image-link">I am already member</a>
+          <div class="signup-image col-4">
+            <figure><img src="img/signup-image.svg" class="img-fluid" alt="sing up image"></figure>
+            <a href="#" class="signup-image-link">I am already member</a>
+          </div>
         </div>
       </div>
     </div>
@@ -88,10 +90,16 @@
 </template>
 
 <script>
+
 export default {
   name: "Authentication",
   props: {
     msg: String,
   },
 };
+
 </script>
+
+<style scoped src='../assets/authentication.css'></style>
+
+<style scoped src='../assets/authentication.scss' lang="scss"></style>

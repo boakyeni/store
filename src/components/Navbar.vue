@@ -50,3 +50,6 @@ export default {
   },
 };
 </script>
+<style scoped src='../assets/navbarstyle.css'></style>
+
+<style scoped src='../assets/navbarstyle.scss' lang="scss"></style>
