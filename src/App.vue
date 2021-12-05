@@ -1,7 +1,6 @@
 <template>
 <div id="app">
-  <div id="nav">
-    <Navbar></Navbar>
+  <div id="nav" class="d-flex justify-content-end">
   </div>
   <router-view />
 </div>
@@ -17,8 +16,11 @@
 }
 
 #nav {
+  padding-top: 20px;
+  /*
   padding-top: 25px;
   padding-bottom: 25px;
+  */
   /*
   a {
     font-weight: bold;

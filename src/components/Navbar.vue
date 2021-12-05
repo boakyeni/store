@@ -3,7 +3,7 @@
   <section class="ftco-section">
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
       <div class="container">
-        <a id="logo" class="navbar-brand" href="index.html">Shop</a>
+        <a id="logo" class="navbar-brand" href="/">Shop</a>
         <!-- Search Bar -->
         <form action="#" class="searchform order-sm-start order-lg-last">
           <div class="form-group d-flex">
