@@ -10,6 +10,11 @@ import './assets/app.scss';
 import './assets/navbarstyle.css';
 import './assets/navbarstyle.scss';
 
+import './assets/authentication.css';
+import './assets/authentication.scss';
+
+
+
 
 
 import Navbar from "./components/Navbar.vue";
