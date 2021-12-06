@@ -30,14 +30,14 @@
                   <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z" />
                 </svg>
               </label>
-              <input type="password" v-model="password" name="your_pass" id="your_pass" placeholder="Password" />
+              <input type="password" @keyup.enter="login" v-model="pass" name="your_pass" id="your_pass" placeholder="Password" />
             </div>
             <div class="form-group">
               <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
               <label for="remember-me" class="label-agree-term"><span><span></span></span>Remember me</label>
             </div>
             <div class="form-group form-button">
-              <input type="submit" name="signin" id="signin" class="form-submit" value="Log in" />
+              <input type="submit" name="signin" id="signin" class="form-submit" @click="login" value="Log in" />
             </div>
           </form>
           <div class="social-login">
@@ -125,7 +125,8 @@ import {
 
 import {
   getAuth,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
 } from "firebase/auth";
 
 export default {
@@ -142,7 +143,26 @@ export default {
     }
   },
   methods: {
-
+    login() {
+      const email = this.name;
+      const password = this.pass;
+      const auth = getAuth(fb);
+      signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          $('#loginModal').modal('hide');
+          const user = userCredential.user;
+          // ...
+          this.$router.replace('/admin');
+          console.log("login");
+          this.$router.push('/admin');
+          window.location.reload();
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
+    },
     register() {
       const email = this.email;
       const password = this.pass;
