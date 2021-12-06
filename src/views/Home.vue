@@ -3,7 +3,7 @@
   <div class="home">
     <Authentication/>
 
-    <Navbar></Navbar>
+    <Navbar class="sticky-top"></Navbar>
     <!-- Landing page splash with svg image and buttons-->
     <Hero/>
 

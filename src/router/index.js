@@ -5,7 +5,8 @@ import Overview from "../views/Overview.vue";
 import Products from "../views/Products.vue";
 import Orders from "../views/Orders.vue";
 import Profile from "../views/Profile.vue";
-
+import {fb} from "../firebase";
+import { getAuth } from "firebase/auth";
 
 const routes = [
   {
@@ -17,6 +18,7 @@ const routes = [
     path: "/admin",
     name: "Admin",
     component: Admin,
+    meta: { requiresAuth: true },
     children: [
       {
         path: "overview",
@@ -54,6 +56,26 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+const isLogged = () => {
+  const auth = getAuth(fb);
+    return auth.currentUser;
+}
+
+router.beforeEach((to, from) => {
+  const auth = getAuth(fb);
+  // instead of having to check every route record with
+  // to.matched.some(record => record.meta.requiresAuth)
+  if (to.meta.requiresAuth && !isLogged()) {
+    // this route requires auth, check if logged in
+    // if not, redirect to login page.
+    return {
+      path: '/',
+      // save the location we were at to come back later
+      query: { redirect: to.fullPath },
+    }
+  } 
 });
 
 export default router;

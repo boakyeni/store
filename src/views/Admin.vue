@@ -75,7 +75,7 @@
                             </router-link>
                         </li>
                         <li>
-                            <a href="#" @click="logout()">
+                            <a @click="logout()">
                                 <i class="fa fa-power-off"></i>
                                 <span>Logout</span>
                             </a>
@@ -100,7 +100,8 @@
 <script>
 // @ is an alias to /src
 import Hero from "@/components/Hero.vue";
-
+import {fb} from "../firebase";
+import { getAuth, signOut } from "firebase/auth";
 
 
 export default {
@@ -108,6 +109,25 @@ export default {
   components: {
     Hero
   },
+  methods:
+  {
+    closeMenu(){
+      $('.page-wrapper').toggleClass('toggled');
+    },
+    logout(){
+        const auth = getAuth(fb);
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            this.$router.replace('/');
+            console.log("we out");
+            this.$router.push('/');
+            window.location.reload();
+        }).catch((error) => {
+            // An error happened.
+            console.log(error);
+        });
+    }
+  }
 };
 </script>
 <style scoped src='../assets/admin.scss' lang="scss"></style>

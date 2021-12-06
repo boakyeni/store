@@ -1,7 +1,7 @@
 <template>
 <div>
   <section class="ftco-section">
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light" id="ftco-navbar">
       <div class="container">
         <a id="logo" class="navbar-brand" href="/">Shop</a>
         <!-- Search Bar -->

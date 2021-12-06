@@ -11,9 +11,24 @@ import './assets/navbarstyle.css';
 import './assets/navbarstyle.scss';
 import Navbar from "./components/Navbar.vue";
 
+import {fb} from './firebase';
+import {getAuth, onAuthStateChanged} from 'firebase/auth';
 
 
-const app = createApp(App);
-app.component('Navbar',Navbar);
-app.use(router);
-app.mount("#app");
+// ...
+
+let apper = '';
+  const auth = getAuth(fb);
+  onAuthStateChanged(auth, (user) => {
+if(!apper){
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    // ...
+    const app = createApp(App);
+    app.component('Navbar',Navbar);
+    app.use(router);
+    app.mount("#app");
+}
+
+
+  });
