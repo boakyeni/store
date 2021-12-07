@@ -4,6 +4,8 @@
 
 import { initializeApp } from "firebase/app";
 
+import { getFirestore } from "firebase/firestore";
+
 import { getAnalytics } from "firebase/analytics";
 
 
@@ -38,3 +40,5 @@ const firebaseConfig = {
 export const fb = initializeApp(firebaseConfig);
 
 export const analytics = getAnalytics(fb);
+
+export const db = getFirestore();
