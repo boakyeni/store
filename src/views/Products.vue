@@ -26,6 +26,28 @@
     <button @click="saveData()" class="btn btn-primary">Save Data</button>
   </div>
 </div>
+<h3>Products List</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Modify</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr v-for="product in products">
+      <td>{{product.data().name}}</td>
+      <td>{{product.data().price}}</td>
+      <td>
+        <button class="btn btn-primary">Edit</button>
+        <button @click="deleteProduct(product)" class="btn btn-danger">Delete</button>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
 </template>
 
 <script>
@@ -35,7 +57,8 @@ import {
 } from '../firebase';
 import {
   collection,
-  addDoc
+  addDoc,
+  getDocs, doc, deleteDoc,
 } from "firebase/firestore";
 
 export default {
@@ -45,6 +68,7 @@ export default {
   },
   data() {
     return {
+      products: [],
       product: {
         name: '',
         price: ''
@@ -52,14 +76,48 @@ export default {
     }
   },
   methods: {
-    saveData() {
-        try {
-          const docRef = addDoc(collection(db, "products"), this.product);
-          console.log("Document written with ID: ", docRef.id);
-        } catch (e) {
-          console.error("Error adding document: ", e);
-        }
+    async deleteProduct(docu){
+      if(confirm('Are you sure?')){
+        await deleteDoc(doc(db, "products", docu.id));
+        console.log("Delete");
+      }else{
+
       }
+
+    },
+    async readData(){
+      const querySnapshot = await getDocs(collection(db, "products"));
+      //this.products = querySnapshot;
+      querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          this.products.push(doc);
+      });
+    },
+    /*
+    Saves data to firestore database
+    */
+    async saveData() {
+      try {
+        const docRef = await addDoc(collection(db, "products"), this.product);
+        console.log("Document written with ID: ", docRef.id);
+        this.reset();
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    },
+    /*
+    resets input fields to null i.e. input goes blank after saving in firestore
+    */
+    reset() {
+      //Object.assign(this.$data, this.$options.data.apply(this))
     }
+  },
+  /*
+  async tag need here to work
+  */
+  created() {
+
+    this.readData();
+  }
 };
 </script>
