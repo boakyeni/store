@@ -146,19 +146,26 @@ export default {
       products: [],
       product: {
         name: '',
-        price: ''
+        price: '',
+        tags: []
       },
       /*
       this is needed for the save changes
       button from edit to have access to the product
       */
       activeItem: null,
-      modal: null
+      modal: null,
+      tag: null
     }
   },
   methods: {
+    addTag(){
+      this.products.tags.push(this.tag);
+      this.tag = '';
+    },
     addNew(){
       this.modal ='new';
+      the.reset();
       $('#edit').modal('show');
     },
     watcher() {
@@ -220,6 +227,9 @@ export default {
     */
     reset() {
       //Object.assign(this.$data, this.$options.data.apply(this))
+      this.products = {
+        
+      }
     }
   },
   /*

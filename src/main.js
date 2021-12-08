@@ -13,7 +13,9 @@ import Navbar from "./components/Navbar.vue";
 
 import {fb} from './firebase';
 import {getAuth, onAuthStateChanged} from 'firebase/auth';
-
+//reminder that you already installed carousel
+import 'vue3-carousel/dist/carousel.css';
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 
 
 

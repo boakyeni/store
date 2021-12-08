@@ -120,8 +120,11 @@ import {
   ref
 } from 'vue'
 import {
-  fb
+  fb, db
 } from '../firebase';
+import {
+  doc, setDoc
+} from 'firebase/firestore';
 
 import {
   getAuth,
@@ -148,14 +151,15 @@ export default {
       const password = this.pass;
       const auth = getAuth(fb);
       signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(async (userCredential) => {
           // Signed in
           $('#loginModal').modal('hide');
           const user = userCredential.user;
           // ...
           this.$router.replace('/admin');
-          console.log("login");
-          this.$router.push('/admin');
+          await setDoc(doc(db, "profiles", user.uid),{
+            name: this.name
+          } );
           window.location.reload();
         })
         .catch((error) => {
@@ -163,19 +167,23 @@ export default {
           const errorMessage = error.message;
         });
     },
-    register() {
+     register() {
       const email = this.email;
       const password = this.pass;
       const auth = getAuth(fb);
       createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
+        .then(async (userCredential) => {
           $('#signUpModal').modal('hide');
           // Signed in
           const user = userCredential.user;
+          console.log(user);
           // ...
-          this.$router.replace('/admin');
-          console.log("created");
+        //  this.$router.replace('/admin');
+        //  console.log("created");
           this.$router.push('/admin');
+          await setDoc(doc(db, "profiles", user.uid),{
+            name: this.name
+          } );
           window.location.reload();
 
         })

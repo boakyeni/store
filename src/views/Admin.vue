@@ -105,9 +105,14 @@ import { getAuth, signOut } from "firebase/auth";
 
 
 export default {
-  name: "About",
+  name: "Admin",
   components: {
     Hero
+  },data() {
+    return {
+      name: null,
+      email: null
+    }
   },
   methods:
   {
@@ -127,6 +132,11 @@ export default {
             console.log(error);
         });
     }
+  },
+  created() {
+    const auth = getAuth(fb);
+    const user = auth.currentUser;
+    this.email = user.email;
   }
 };
 </script>
