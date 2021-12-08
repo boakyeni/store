@@ -41,13 +41,35 @@
       <td>{{product.data().name}}</td>
       <td>{{product.data().price}}</td>
       <td>
-        <button class="btn btn-primary">Edit</button>
+        <button @click="editProduct(product)" class="btn btn-primary">Edit</button>
         <button @click="deleteProduct(product)" class="btn btn-danger">Delete</button>
       </td>
     </tr>
 
   </tbody>
 </table>
+<div class="modal fade" id="edit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <input type="text" placeholder="Name" v-model="product.name" class="form-control">
+        </div>
+        <div>
+          <input type="text" placeholder="Price" v-model="product.price" class="form-control">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button @click="updateProduct()" type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -58,7 +80,13 @@ import {
 import {
   collection,
   addDoc,
-  getDocs, doc, deleteDoc,
+  getDocs,
+  doc,
+  deleteDoc,
+  updateDoc,
+  query,
+  where,
+  onSnapshot
 } from "firebase/firestore";
 
 export default {
@@ -72,25 +100,54 @@ export default {
       product: {
         name: '',
         price: ''
-      }
+      },
+      /*
+      this is needed for the save changes
+      button from edit to have access to the product
+      */
+      activeItem: null
     }
   },
   methods: {
-    async deleteProduct(docu){
-      if(confirm('Are you sure?')){
+
+    watcher() {
+      const q = query(collection(db, "products"));
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        this.products = [];
+        querySnapshot.forEach((doc) => {
+          this.products.push(doc);
+        });
+      });
+    },
+    async updateProduct() {
+      const productRef = doc(db, "products", this.activeItem);
+
+      // Set all fields of the product 'product.id'
+      await updateDoc(productRef, this.product);
+      $('#edit').modal('hide');
+      //realtime database
+      this.watcher();
+    },
+    editProduct(product) {
+      $('#edit').modal('show');
+      this.product = product.data();
+      this.activeItem = product.id;
+    },
+    async deleteProduct(docu) {
+      if (confirm('Are you sure?')) {
         await deleteDoc(doc(db, "products", docu.id));
         console.log("Delete");
-      }else{
+      } else {
 
       }
 
     },
-    async readData(){
+    async readData() {
       const querySnapshot = await getDocs(collection(db, "products"));
       //this.products = querySnapshot;
       querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          this.products.push(doc);
+        // doc.data() is never undefined for query doc snapshots
+        this.products.push(doc);
       });
     },
     /*
