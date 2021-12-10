@@ -10,6 +10,7 @@ import './assets/app.scss';
 import './assets/navbarstyle.css';
 import './assets/navbarstyle.scss';
 import Navbar from "./components/Navbar.vue";
+import AddToCart from "./components/AddToCart.vue";
 
 import {fb} from './firebase';
 import {getAuth, onAuthStateChanged} from 'firebase/auth';
@@ -17,7 +18,7 @@ import {getAuth, onAuthStateChanged} from 'firebase/auth';
 import 'vue3-carousel/dist/carousel.css';
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel';
 
-
+import store from "./store.js";
 
 // ...
 
@@ -30,7 +31,9 @@ if(!apper){
     // ...
     const app = createApp(App);
     app.component('Navbar',Navbar);
+    app.component('AddToCart',AddToCart);
     app.use(router);
+    app.use(store);
     app.mount("#app");
 }
 
